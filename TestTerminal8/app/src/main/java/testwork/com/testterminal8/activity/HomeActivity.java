@@ -1,11 +1,18 @@
 package testwork.com.testterminal8.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.hardware.camera2.CameraDevice;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,10 +23,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import testwork.com.testterminal8.R;
 import testwork.com.testterminal8.fragment.FragmentWords;
 import testwork.com.testterminal8.fragment.FragmentWordset;
+import testwork.com.testterminal8.manager.Contextor;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_home);
         initInstances();
     }
@@ -46,7 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         UseCamera = (CardView)findViewById(R.id.card_use_camera);
         EdSearch = (EditText)findViewById(R.id.ed_search);
@@ -80,8 +90,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == UseCamera){
-            Intent intent = new Intent("MediaStore.ACTION_IMAGE_CAPTURE");
-            startActivity(intent);
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,999);
+
         }
         if(v == imagebutton_search){
             text.setVisibility(View.INVISIBLE);
@@ -96,6 +108,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             imagebutton_search.setVisibility(View.VISIBLE);
             imagebutton_close.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void req() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
+
+        }
+        else{
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
         }
     }
 
@@ -133,5 +154,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
