@@ -50,21 +50,21 @@
         android:orientation="vertical">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs_revanus"
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#FFFFFF"
             app:tabTextColor="#000000">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tabItem_revanus"
+                android:id="@+id/tabItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/prompt_regular"
                 android:text="ชุดคำ" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tabItem2_revanus"
+                android:id="@+id/tabItem2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/prompt_regular"
@@ -108,7 +108,7 @@
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/pager_revanus"
+            android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
